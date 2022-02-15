@@ -24,10 +24,19 @@ function! s:vscode_fill_letters(parts) abort
 endfunction
 
 function! s:fill_window() abort
-  let start_line = line('w0')
-  let end_line = line('w$')
+  " let start_line = line('w0')
+  " let end_line = line('w$')
   let bufnr = bufnr()
   let mark_len = len(g:jumpcursor_marks)
+
+  " By default, line('w0') and line('w$') is incongruent with visible ranges
+  " on VS Code. Instead, display marks around the current cursor.
+  let cur_line = line('.')
+  let start_line = cur_line - mark_len/2 + g:jumpcursor_offset
+  if start_line < 1
+    let start_line = 1
+  endif
+  let end_line = start_line + mark_len - 1
 
   " [[1, 1], [1,2], [1,5]]
   let mark_idx = 0
