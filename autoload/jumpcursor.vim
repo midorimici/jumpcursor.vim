@@ -7,7 +7,7 @@ let g:jumpcursor_marks = get(g:, 'jumpcursor_marks', split('abcdefghijklmnopqrst
 let s:jumpcursor_mark_lnums = {}
 let s:jumpcursor_mark_cols = {}
 
-let s:jumpcursor_hl_group_target = get(g:, 'jumpcursor_hl_group_target', 'JumpCursorTarget')
+let s:jumpcursor_hl_group_target = 'JumpCursorTarget'
 let s:vscode_lines_items = []
 
 function! jumpcursor#init_hl() abort
