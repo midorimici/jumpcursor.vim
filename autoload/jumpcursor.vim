@@ -6,7 +6,6 @@ let g:jumpcursor_marks = get(g:, 'jumpcursor_marks', split('abcdefghijklmnopqrst
 
 let s:jumpcursor_mark_lnums = {}
 let s:jumpcursor_mark_cols = {}
-let s:jumpcursor_ns = nvim_create_namespace('jumpcursor')
 
 let s:jumpcursor_hl_group_target = get(g:, 'jumpcursor_hl_group_target', 'JumpCursorTarget')
 let s:vscode_lines_items = []
@@ -26,7 +25,6 @@ endfunction
 function! s:fill_window() abort
   " let start_line = line('w0')
   " let end_line = line('w$')
-  let bufnr = bufnr()
   let mark_len = len(g:jumpcursor_marks)
 
   " By default, line('w0') and line('w$') is incongruent with visible ranges
@@ -73,7 +71,6 @@ endfunction
 
 function! s:fill_specific_line(lnum) abort
   let text = getline(a:lnum)
-  let bufnr = bufnr()
   let mark_idx = 0
   let mark_len = len(g:jumpcursor_marks)
   let parts = {}
@@ -137,8 +134,6 @@ function! jumpcursor#jump() abort
 endfunction
 
 function! s:jump_cursor_clear() abort
-  call nvim_buf_clear_namespace(bufnr(), s:jumpcursor_ns, line('w0')-1, line('w$'))
-
   if len(s:vscode_lines_items) > 0
     call VSCodeSetTextDecorations(s:jumpcursor_hl_group_target, [])
   endif
