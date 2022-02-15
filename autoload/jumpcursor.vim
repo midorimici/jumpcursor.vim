@@ -46,20 +46,9 @@ function! s:fill_window() abort
     endif
     let text = getline(start_line)
     let mark = g:jumpcursor_marks[mark_idx]
-    for i in range(len(text))
-      " skip blank
-      if text[i] ==# ' ' || text[i] ==# "\t"
-        continue
-      endif
 
-      " set parts to fill
-      if has_key(parts, start_line)
-        call add(parts[start_line], [i+1, mark])
-      else
-        let parts[start_line] = [[i+1, mark]]
-      endif
+    let parts[start_line] = [[1, repeat(mark, len(text))]]
 
-    endfor
     let s:jumpcursor_mark_lnums[mark] = start_line
     let mark_idx += 1
     let start_line += 1
