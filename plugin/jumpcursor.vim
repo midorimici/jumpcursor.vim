@@ -7,4 +7,13 @@ if exists('loaded_jumpcursor')
 endif
 let g:loaded_jumpcursor = 1
 
+if !exists('jumpcursor_guihl')
+  let g:jumpcursor_guihl = 'guibg=#ffeedd guifg=#ff7700 gui=bold'
+endif
+
+augroup jumpcursor_init_hl
+  autocmd!
+  autocmd VimEnter * call jumpcursor#init_hl()
+augroup end
+
 nnoremap <silent> <Plug>(jumpcursor-jump) :call jumpcursor#jump()<CR>
